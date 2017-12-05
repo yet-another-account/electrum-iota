@@ -42,6 +42,29 @@ class TabbedPane(QTabWidget):
 
     def sendtabUI(self):
         layout = QFormLayout()
+        sendObj = Send()
+        layout.addWidget(sendObj)
+        self.setTabText(1, "Send")
+        self.sendtab.setLayout(layout)
+
+    def receivetabUI(self):
+        layout = QHBoxLayout()
+
+        self.setTabText(2, "Receive")
+        self.receivetab.setLayout(layout)
+
+
+class History(QWidget):
+    def __init__(self, parent=None):
+        pass
+
+class Send(QWidget):
+    def handleMax(self):
+        print("Handle max!")
+
+    def __init__(self, parent=None):
+        super(QWidget, self).__init__(parent)
+        layout = QFormLayout()
         layout.setSpacing(12)
         address = HashEdit(90)
         tag = HashEdit(27)
@@ -52,8 +75,12 @@ class TabbedPane(QTabWidget):
         row1.addWidget(AmountEdit(lambda: 'IOTA'), 0, 0)
 
         maxbutton = QPushButton("Max")
+        maxbutton.clicked.connect(self.handleMax)
         maxbutton.setFixedWidth(100)
         row1.addWidget(maxbutton, 0, 1)
+
+
+
         layout.addRow("Amount", row1)
 
         btnrow = QGridLayout()
@@ -77,12 +104,11 @@ class TabbedPane(QTabWidget):
         btnrow.addWidget(sendbutton, 0, 3)
 
         layout.addRow("", btnrow)
+        self.setLayout(layout)
 
-        self.setTabText(1, "Send")
-        self.sendtab.setLayout(layout)
 
-    def receivetabUI(self):
-        layout = QHBoxLayout()
 
-        self.setTabText(2, "Receive")
-        self.receivetab.setLayout(layout)
+
+class Recieve(QWidget):
+    def __init__(self, parent=None):
+        pass
