@@ -49,12 +49,35 @@ class TabbedPane(QTabWidget):
         layout.addRow("Pay to", address)
         layout.addRow("Tag", tag)
         row1 = QGridLayout()
-        row1.addWidget(AmountEdit(lambda: 'IOTA', is_int=True), 0, 0)
+        row1.addWidget(AmountEdit(lambda: 'IOTA'), 0, 0)
 
         maxbutton = QPushButton("Max")
         maxbutton.setFixedWidth(100)
         row1.addWidget(maxbutton, 0, 1)
         layout.addRow("Amount", row1)
+
+        btnrow = QGridLayout()
+        btnwidth = 80
+
+        padding = QLabel("\t")
+        padding.setFixedWidth(40)
+
+        clearbutton = QPushButton("Clear")
+        clearbutton.setFixedWidth(btnwidth)
+
+        previewbutton = QPushButton("Preview")
+        previewbutton.setFixedWidth(btnwidth)
+
+        sendbutton = QPushButton("Send")
+        sendbutton.setFixedWidth(btnwidth)
+
+        btnrow.addWidget(padding, 0, 0)
+        btnrow.addWidget(clearbutton, 0, 1)
+        btnrow.addWidget(previewbutton, 0, 2)
+        btnrow.addWidget(sendbutton, 0, 3)
+
+        layout.addRow("", btnrow)
+
         self.setTabText(1, "Send")
         self.sendtab.setLayout(layout)
 

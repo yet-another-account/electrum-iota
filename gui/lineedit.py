@@ -38,31 +38,22 @@ class HashEdit(MyLineEdit):
             return None
 
 class AmountEdit(MyLineEdit):
-    shortcut = pyqtSignal()
 
-    def __init__(self, base_unit, is_int = False, parent=None):
+    def __init__(self, base_unit, parent=None):
         QLineEdit.__init__(self, parent)
         self.setFixedWidth(140)
         self.base_unit = base_unit
         self.textChanged.connect(self.numbify)
-        self.is_int = is_int
-        self.is_shortcut = False
         self.help_palette = QPalette()
 
     def numbify(self):
         text = self.text().strip()
-        if text == '!':
-            self.shortcut.emit()
-            return
+
         pos = self.cursorPosition()
         chars = '0123456789'
-        if not self.is_int: chars +='.'
+
         s = ''.join([i for i in text if i in chars])
-        if not self.is_int:
-            if '.' in s:
-                p = s.find('.')
-                s = s.replace('.','')
-                s = s[:p] + '.' + s[p:p+self.decimal_point()]
+
         self.setText(s)
         # setText sets Modified to False.  Instead we want to remember
         # if updates were because of user modification.
