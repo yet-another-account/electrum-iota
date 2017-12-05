@@ -2,7 +2,10 @@ from PyQt5.QtWidgets import QApplication, QTabWidget, QWidget, QFormLayout, \
     QLineEdit, QHBoxLayout, QRadioButton, QLabel, QCheckBox, QMainWindow, QStyleOptionFrame, QStyle, QGridLayout, QPushButton
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from .lineedit import HashEdit, AmountEdit
+
+from .tab.send import Send
+from .tab.receive import Receive
+from .tab.history import History
 
 import sys
 
@@ -12,6 +15,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setGeometry(400, 400, 900, 400)
+        self.setMinimumSize(500, 300)
         self.setWindowTitle("Electrum IOTA Wallet")
         self.setWindowIcon(QIcon('icons/logo.png'))
         self.pane = TabbedPane(self)
@@ -52,63 +56,3 @@ class TabbedPane(QTabWidget):
 
         self.setTabText(2, "Receive")
         self.receivetab.setLayout(layout)
-
-
-class History(QWidget):
-    def __init__(self, parent=None):
-        pass
-
-class Send(QWidget):
-    def handleMax(self):
-        print("Handle max!")
-
-    def __init__(self, parent=None):
-        super(QWidget, self).__init__(parent)
-        layout = QFormLayout()
-        layout.setSpacing(12)
-        address = HashEdit(90)
-        tag = HashEdit(27)
-
-        layout.addRow("Pay to", address)
-        layout.addRow("Tag", tag)
-        row1 = QGridLayout()
-        row1.addWidget(AmountEdit(lambda: 'IOTA'), 0, 0)
-
-        maxbutton = QPushButton("Max")
-        maxbutton.clicked.connect(self.handleMax)
-        maxbutton.setFixedWidth(100)
-        row1.addWidget(maxbutton, 0, 1)
-
-
-
-        layout.addRow("Amount", row1)
-
-        btnrow = QGridLayout()
-        btnwidth = 80
-
-        padding = QLabel("\t")
-        padding.setFixedWidth(40)
-
-        clearbutton = QPushButton("Clear")
-        clearbutton.setFixedWidth(btnwidth)
-
-        previewbutton = QPushButton("Preview")
-        previewbutton.setFixedWidth(btnwidth)
-
-        sendbutton = QPushButton("Send")
-        sendbutton.setFixedWidth(btnwidth)
-
-        btnrow.addWidget(padding, 0, 0)
-        btnrow.addWidget(clearbutton, 0, 1)
-        btnrow.addWidget(previewbutton, 0, 2)
-        btnrow.addWidget(sendbutton, 0, 3)
-
-        layout.addRow("", btnrow)
-        self.setLayout(layout)
-
-
-
-
-class Recieve(QWidget):
-    def __init__(self, parent=None):
-        pass
