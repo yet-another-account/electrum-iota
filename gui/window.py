@@ -14,7 +14,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super(MainWindow, self).__init__()
-        self.setGeometry(400, 400, 900, 400)
+        self.setGeometry(400, 400, 900, 350)
         self.setMinimumSize(500, 300)
         self.setWindowTitle("Electrum IOTA Wallet")
         self.setWindowIcon(QIcon('icons/logo.png'))
