@@ -12,19 +12,22 @@ class Send(QWidget):
         print("Handle preview!")
 
     def handleClear(self):
-        print("Handle clear!")
+        self.address.clear()
+        self.tag.clear()
+        self.amount.clear()
 
     def __init__(self, parent=None):
         super(QWidget, self).__init__(parent)
         layout = QFormLayout()
         layout.setSpacing(12)
-        address = HashEdit(90)
-        tag = HashEdit(27)
+        self.address = HashEdit(90)
+        self.tag = HashEdit(27)
+        self.amount = AmountEdit(lambda: 'IOTA')
 
-        layout.addRow("Pay to", address)
-        layout.addRow("Tag", tag)
+        layout.addRow("Pay to", self.address)
+        layout.addRow("Tag", self.tag)
         row1 = QGridLayout()
-        row1.addWidget(AmountEdit(lambda: 'IOTA'), 0, 0)
+        row1.addWidget(self.amount, 0, 0)
 
         maxbutton = QPushButton("Max")
         maxbutton.clicked.connect(self.handleMax)
