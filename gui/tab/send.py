@@ -5,6 +5,15 @@ class Send(QWidget):
     def handleMax(self):
         print("Handle max!")
 
+    def handleSend(self):
+        print("Handle send!")
+
+    def handlePreview(self):
+        print("Handle preview!")
+
+    def handleClear(self):
+        print("Handle clear!")
+
     def __init__(self, parent=None):
         super(QWidget, self).__init__(parent)
         layout = QFormLayout()
@@ -32,12 +41,15 @@ class Send(QWidget):
         padding.setFixedWidth(40)
 
         clearbutton = QPushButton("Clear")
+        clearbutton.clicked.connect(self.handleClear)
         clearbutton.setFixedWidth(btnwidth)
 
         previewbutton = QPushButton("Preview")
+        previewbutton.clicked.connect(self.handlePreview)
         previewbutton.setFixedWidth(btnwidth)
 
         sendbutton = QPushButton("Send")
+        sendbutton.clicked.connect(self.handleSend)
         sendbutton.setFixedWidth(btnwidth)
 
         btnrow.addWidget(padding, 0, 0)
